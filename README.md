@@ -4,7 +4,7 @@ A self-support tool for panic and anxiety. Luma opens straight into help (no sig
 
 > Luma is self-support and peer support. It does not diagnose, treat or replace professional care. In India, call Tele-MANAS on 14416, or 112 in an emergency.
 
-**Live app:** _add your Render URL here_ · **Demo video:** _add link here_
+**Live app:** https://luma-jkr8.onrender.com · **Demo video:** _add link here_
 
 ## Problem Statement
 
