@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useId, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useAppState } from '../lib/AppState.jsx';
 import { techniqueName } from '../lib/techniques.js';
@@ -9,9 +9,12 @@ import { currentSubscription, disablePush, enablePush, pushSupported } from '../
 import Helplines, { Disclaimer } from '../components/Helplines.jsx';
 
 function Toggle({ label, hint, checked, onChange }) {
+  // aria-labelledby takes a list of ids separated by spaces, so the id must not
+  // contain any (labels like "Low stimulation" do).
+  const labelId = useId();
   return (
     <div className="setting">
-      <span className="setting__text" id={`${label}-label`}>
+      <span className="setting__text" id={labelId}>
         {label}
         {hint && <small>{hint}</small>}
       </span>
@@ -20,7 +23,7 @@ function Toggle({ label, hint, checked, onChange }) {
         role="switch"
         className="toggle"
         aria-checked={checked}
-        aria-labelledby={`${label}-label`}
+        aria-labelledby={labelId}
         onClick={() => onChange(!checked)}
       />
     </div>
