@@ -1,0 +1,33 @@
+# Render Blueprint: one web service that runs the API (Express + Socket.IO)
+# and serves the built website from the same address.
+# In Render: New > Blueprint > pick this repo, then paste in the values it asks
+# for (MONGODB_URI, MODERATOR_EMAILS and the two VAPID keys).
+services:
+  - type: web
+    name: luma
+    runtime: node
+    plan: free
+    buildCommand: npm ci --prefix client && npm run build --prefix client && npm ci --omit=dev --prefix server
+    startCommand: npm start --prefix server
+    healthCheckPath: /api/health
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: NODE_VERSION
+        value: 22
+      - key: CLIENT_DIST
+        value: ../client/dist
+      - key: MONGODB_URI
+        sync: false
+      - key: JWT_SECRET
+        generateValue: true
+      - key: HANDLE_SECRET
+        generateValue: true
+      - key: MODERATOR_EMAILS
+        sync: false
+      - key: VAPID_PUBLIC_KEY
+        sync: false
+      - key: VAPID_PRIVATE_KEY
+        sync: false
+      - key: VAPID_SUBJECT
+        value: mailto:anoushkadeolia@gmail.com

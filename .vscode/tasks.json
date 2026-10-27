@@ -1,0 +1,48 @@
+{
+  // Terminal > Run Task... > "Luma: start" installs packages, loads demo data,
+  // then runs the API (port 4000) and the app (http://localhost:5173) side by side.
+  "version": "2.0.0",
+  "windows": {
+    "options": { "shell": { "executable": "cmd.exe", "args": ["/d", "/c"] } }
+  },
+  "tasks": [
+    {
+      "label": "Luma: start",
+      "dependsOrder": "sequence",
+      "dependsOn": ["Luma: install and seed", "Luma: run server and app"],
+      "problemMatcher": []
+    },
+    {
+      "label": "Luma: install and seed",
+      "type": "shell",
+      "command": "npm install --prefix server && npm install --prefix client && npm run seed --prefix server",
+      "problemMatcher": [],
+      "presentation": { "panel": "dedicated", "reveal": "always" }
+    },
+    {
+      "label": "Luma: run server and app",
+      "dependsOn": ["Luma: server", "Luma: app"],
+      "problemMatcher": []
+    },
+    {
+      "label": "Luma: server",
+      "type": "shell",
+      "command": "npm run dev",
+      "windows": { "options": { "cwd": "${workspaceFolder}/server", "shell": { "executable": "cmd.exe", "args": ["/d", "/c"] } } },
+      "options": { "cwd": "${workspaceFolder}/server" },
+      "isBackground": true,
+      "problemMatcher": [],
+      "presentation": { "panel": "dedicated", "reveal": "always", "group": "luma" }
+    },
+    {
+      "label": "Luma: app",
+      "type": "shell",
+      "command": "npm run dev",
+      "windows": { "options": { "cwd": "${workspaceFolder}/client", "shell": { "executable": "cmd.exe", "args": ["/d", "/c"] } } },
+      "options": { "cwd": "${workspaceFolder}/client" },
+      "isBackground": true,
+      "problemMatcher": [],
+      "presentation": { "panel": "dedicated", "reveal": "always", "group": "luma" }
+    }
+  ]
+}
